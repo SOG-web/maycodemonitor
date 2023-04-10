@@ -7,32 +7,17 @@ export interface AuthContextProps {
     name: string;
     email: string;
   } | null;
-  setUser: (user: { name: string; email: string }) => void;
+  setUser: (user: { name: string; email: string } | null) => void;
 }
 
 export const AuthContext = createContext({} as AuthContextProps);
-
-export const login = ({
-  username,
-  password,
-}: {
-  username: string;
-  password: string;
-}): void => {
-  if (username === 'admin' && password === 'admin') {
-    setToken('token');
-    return;
-  }
-
-  throw new Error('Invalid username or password');
-};
 
 export const logout = (): void => {
   removeToken();
   return;
 };
 
-const setToken = (token: string): void => {
+export const setToken = (token: string): void => {
   localStorage.setItem('token', token);
 };
 
