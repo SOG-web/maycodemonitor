@@ -1,19 +1,12 @@
 import React from 'react';
-import { AuthContext, logout } from '../contexts/AuthContext';
+
+import Nav from '../components/Nav';
 
 export default function Home() {
-  const { setIsLoggedIn, setUser } = React.useContext(AuthContext);
-
-  const logOut = () => {
-    logout();
-    setIsLoggedIn(false);
-    setUser(null);
-  };
-
   return (
     <div>
+      <Nav />
       <h1>Home</h1>
-      <button onClick={logOut}>Logout</button>
     </div>
   );
 }

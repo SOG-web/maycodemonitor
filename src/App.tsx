@@ -7,6 +7,7 @@ import Root from './routes/root';
 import { AuthContext, getToken } from './contexts/AuthContext';
 import Home from './pages/Home';
 import jwt_decode from 'jwt-decode';
+import ControlsPage from './pages/Controls';
 
 const NoAuthRouter = createBrowserRouter([
   {
@@ -27,11 +28,11 @@ const AuthRouter = createBrowserRouter([
     element: <Home />,
     errorElement: <ErrorPage />,
   },
-  // {
-  //   path: '/login',
-  //   element: <LoginPage />,
-  //   errorElement: <ErrorPage />,
-  // },
+  {
+    path: '/controls',
+    element: <ControlsPage />,
+    errorElement: <ErrorPage />,
+  },
 ]);
 
 interface User {

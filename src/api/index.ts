@@ -16,6 +16,81 @@ if (token) {
   api.defaults.headers.authorization = `Bearer ${token}`;
 }
 
+export const updateControl = async (
+  name: string,
+  st: boolean
+): Promise<any> => {
+  try {
+    const { data, status } = await api.put('/controls', {
+      name,
+      status: st,
+    });
+
+    if (status !== 200) {
+      return { data: null, status: false, error: data };
+    }
+
+    return { data, status: true, error: null };
+  } catch (error: any) {
+    if (error.response) {
+      return { data: null, status: false, error: error.response.data };
+    }
+
+    if (error.request) {
+      return { data: null, status: false, error: error.request };
+    }
+
+    return { data: null, status: false, error: error.message };
+  }
+};
+
+export const setControl = async (name: string, st: boolean): Promise<any> => {
+  try {
+    const { data, status } = await api.post('/controls', {
+      name,
+      status: st,
+    });
+
+    if (status !== 200) {
+      return { data: null, status: false, error: data };
+    }
+
+    return { data, status: true, error: null };
+  } catch (error: any) {
+    if (error.response) {
+      return { data: null, status: false, error: error.response.data };
+    }
+
+    if (error.request) {
+      return { data: null, status: false, error: error.request };
+    }
+
+    return { data: null, status: false, error: error.message };
+  }
+};
+
+export const getControls = async (): Promise<any> => {
+  try {
+    const { data, status } = await api.get('/controls');
+
+    if (status !== 200) {
+      return { data: null, status: false, error: data };
+    }
+
+    return { data, status: true, error: null };
+  } catch (error: any) {
+    if (error.response) {
+      return { data: null, status: false, error: error.response.data };
+    }
+
+    if (error.request) {
+      return { data: null, status: false, error: error.request };
+    }
+
+    return { data: null, status: false, error: error.message };
+  }
+};
+
 export const login = async (obj: LoginRequest): Promise<LoginResponse> => {
   try {
     const { data, status } = await api.post('/login', {

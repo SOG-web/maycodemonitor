@@ -1,3 +1,6 @@
+@import '../node_modules/primereact/resources/themes/saga-blue/theme.css';
+@import '../node_modules/primereact/resources/primereact.min.css';
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
