@@ -1,9 +1,12 @@
 import React from 'react';
 import { Button } from 'primereact/button';
 import { Dropdown } from 'primereact/dropdown';
+import { useNavigate } from 'react-router-dom';
 
 import { getControls, setControl, updateControl } from '../api';
 import Nav from '../components/Nav';
+import { AuthContext, logout } from '../contexts/AuthContext';
+
 
 function ControlsPage() {
   const [loading, setLoading] = React.useState(false);
@@ -11,6 +14,10 @@ function ControlsPage() {
   const [controls, setControls] = React.useState() as any;
   const [selectedControl, setSelectedControl] = React.useState() as any;
   const [selectedStatus, setSelectedStatus] = React.useState() as any;
+
+  const { setIsLoggedIn, setUser } = React.useContext(AuthContext);
+
+  const navigate = useNavigate();
 
   const list = [
     {
@@ -24,6 +31,14 @@ function ControlsPage() {
     {
       name: 'RADAR',
       value: 'RADAR',
+    },
+    {
+      name: 'FLASHING ARROW',
+      value: 'FLASHINGARROW',
+    },
+    {
+    name: 'DELETION ANIMATION',
+    value: 'DELETIONANIMATION',
     },
   ];
 
@@ -73,6 +88,12 @@ function ControlsPage() {
       if (control.status === false) {
         setError(control.error);
         setLoading(false);
+        if(control.error.error === 'Unauthorized') {
+          logout();
+          setIsLoggedIn(false);
+          setUser(null);
+          navigate('/login');
+        }
         return;
       }
 
@@ -86,6 +107,12 @@ function ControlsPage() {
     if (control.status === false) {
       setError(control.error);
       setLoading(false);
+      if(control.error.error === 'Unauthorized') {
+        logout();
+        setIsLoggedIn(false);
+        setUser(null);
+        navigate('/login');
+      }
       return;
     }
 
