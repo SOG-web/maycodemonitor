@@ -1,4 +1,4 @@
-export const API_BaseURL = 'http://132.145.23.94:2020/rest/';
+export const API_BaseURL = 'https://maycode.onrender.com/rest/';
 
 export const API_Routes = {
   login: 'login',
