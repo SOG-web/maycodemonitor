@@ -8,6 +8,9 @@ import { AuthContext, getToken } from './contexts/AuthContext';
 import Home from './pages/Home';
 import jwt_decode from 'jwt-decode';
 import ControlsPage from './pages/Controls';
+import ViewPage from './pages/View';
+import { Record } from './api/interface/records/record.interface';
+import { RecordContext } from './contexts/RecordContext';
 
 const NoAuthRouter = createBrowserRouter([
   {
@@ -33,6 +36,11 @@ const AuthRouter = createBrowserRouter([
     element: <ControlsPage />,
     errorElement: <ErrorPage />,
   },
+  {
+    path: 'view/:id',
+    element: <ViewPage />,
+    errorElement: <ErrorPage />,
+  },
 ]);
 
 interface User {
@@ -45,6 +53,8 @@ function App() {
   const [isError, setIsError] = useState('');
   const [loading, setLoading] = useState(false);
   const [user, setUser] = useState(null as User | null);
+  const [records, setRecords] = useState<Record[]>([]);
+  const [viewRecord, setViewRecord] = useState<Record | null>(null);
 
   useEffect(() => {
     setLoading(true);
@@ -93,7 +103,16 @@ function App() {
       }}
     >
       {user ? (
-        <RouterProvider router={AuthRouter} />
+        <RecordContext.Provider
+          value={{
+            records,
+            setRecords,
+            viewRecord,
+            setViewRecord,
+          }}
+        >
+          <RouterProvider router={AuthRouter} />
+        </RecordContext.Provider>
       ) : (
         <RouterProvider router={NoAuthRouter} />
       )}

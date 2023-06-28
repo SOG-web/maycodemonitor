@@ -2,6 +2,7 @@ import axios from 'axios';
 import { getToken } from '../contexts/AuthContext';
 import { API_BaseURL } from '../constants';
 import { LoginRequest, LoginResponse } from './interface/auth/auth-interface';
+import { RecordResponse } from './interface/records/record.interface';
 
 const token = getToken();
 
@@ -97,6 +98,28 @@ export const login = async (obj: LoginRequest): Promise<LoginResponse> => {
       email: obj.email,
       password: obj.password,
     });
+
+    if (status !== 200) {
+      return { data: null, status: false, error: data };
+    }
+
+    return { data, status: true, error: null };
+  } catch (error: any) {
+    if (error.response) {
+      return { data: null, status: false, error: error.response.data };
+    }
+
+    if (error.request) {
+      return { data: null, status: false, error: error.request };
+    }
+
+    return { data: null, status: false, error: error.message };
+  }
+};
+
+export const getRecords = async (): Promise<RecordResponse> => {
+  try {
+    const { data, status } = await api.get('/records');
 
     if (status !== 200) {
       return { data: null, status: false, error: data };
