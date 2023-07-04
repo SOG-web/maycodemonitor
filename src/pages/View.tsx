@@ -75,7 +75,10 @@ const ViewPage = () => {
           <p className='mr-[10px]'>Select User :</p>
           <Dropdown
             value={selectedUser}
-            onChange={(e) => setSelectedUser(e.value)}
+            onChange={(e) => {
+              console.log(e.value);
+              setSelectedUser(e.value);
+            }}
             options={users}
             optionLabel='label'
             placeholder='Select a City'

@@ -39,7 +39,7 @@ const AuthRouter = createBrowserRouter([
   {
     path: 'view/:id',
     element: <ViewPage />,
-    errorElement: <ErrorPage />,
+    // errorElement: <ErrorPage />,
   },
 ]);
 
