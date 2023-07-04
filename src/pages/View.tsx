@@ -81,7 +81,7 @@ const ViewPage = () => {
             }}
             options={users}
             optionLabel='label'
-            placeholder='Select a City'
+            placeholder='Mouse Tracking'
             className='w-[200px] md:w-14rem'
           />
         </div>
