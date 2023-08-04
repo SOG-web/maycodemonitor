@@ -7,7 +7,6 @@ import { getControls, setControl, updateControl } from '../api';
 import Nav from '../components/Nav';
 import { AuthContext, logout } from '../contexts/AuthContext';
 
-
 function ControlsPage() {
   const [loading, setLoading] = React.useState(false);
   const [error, setError] = React.useState() as any;
@@ -33,12 +32,12 @@ function ControlsPage() {
       value: 'RADAR',
     },
     {
-      name: 'FLASHING ARROW',
-      value: 'FLASHINGARROW',
+      name: 'POPUP BOX',
+      value: 'POPUPBOX',
     },
     {
-    name: 'DELETION ANIMATION',
-    value: 'DELETIONANIMATION',
+      name: 'DELETION ANIMATION',
+      value: 'DELETIONANIMATION',
     },
   ];
 
@@ -88,7 +87,7 @@ function ControlsPage() {
       if (control.status === false) {
         setError(control.error);
         setLoading(false);
-        if(control.error.error === 'Unauthorized') {
+        if (control.error.error === 'Unauthorized') {
           logout();
           setIsLoggedIn(false);
           setUser(null);
@@ -107,7 +106,7 @@ function ControlsPage() {
     if (control.status === false) {
       setError(control.error);
       setLoading(false);
-      if(control.error.error === 'Unauthorized') {
+      if (control.error.error === 'Unauthorized') {
         logout();
         setIsLoggedIn(false);
         setUser(null);
