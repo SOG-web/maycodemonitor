@@ -139,3 +139,25 @@ export const getRecords = async (): Promise<RecordResponse> => {
     return { data: null, status: false, error: error.message };
   }
 };
+
+export const deleteRecord = async (id: string): Promise<RecordResponse> => {
+  try {
+    const { data, status } = await api.delete(`/record/${id}`);
+
+    if (status !== 200) {
+      return { data: null, status: false, error: data };
+    }
+
+    return { data, status: true, error: null };
+  } catch (error: any) {
+    if (error.response) {
+      return { data: null, status: false, error: error.response.data };
+    }
+
+    if (error.request) {
+      return { data: null, status: false, error: error.request };
+    }
+
+    return { data: null, status: false, error: error.message };
+  }
+};

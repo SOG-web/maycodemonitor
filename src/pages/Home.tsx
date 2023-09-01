@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Nav from '../components/Nav';
-import { getRecords } from '../api';
+import { getRecords, deleteRecord } from '../api';
 import { Record } from '../api/interface/records/record.interface';
 import { RecordContext } from '../contexts/RecordContext';
 import { useNavigate } from 'react-router-dom';
@@ -20,7 +20,7 @@ export default function Home() {
         console.log(res.error);
         return;
       }
-      //console.log(res.data);
+      console.log(res.data);
       setRecords(res.data?.records || []);
       setLoading(false);
     });
@@ -41,6 +41,32 @@ export default function Home() {
     navigate(`/view/${id}`);
   };
 
+  const handleDelete = (id: string) => {
+    console.log(id);
+
+    const record = records.find((record) => record.id === id);
+
+    if (!record) {
+      console.log('No record found');
+      return;
+    }
+
+    const newRecords = records.filter((record) => record.id !== id);
+
+    setRecords(newRecords);
+
+    navigate(`/`);
+
+    deleteRecord(id).then((res) => {
+      if (res.status === false) {
+        console.log(res.error);
+        return;
+      }
+      console.log(res.data);
+      setLoading(false);
+    });
+  };
+
   return (
     <div>
       <Nav />
@@ -57,7 +83,7 @@ export default function Home() {
           <p className='text-lg'>No Records</p>
         </div>
       ) : (
-        <div className='w-full flex items-center justify-center mt-[56px] gap-[20px]'>
+        <div className='w-full flex flex-wrap items-center justify-center mt-[56px] gap-[50px]'>
           {records.map((record) => {
             const name = record.data.map((data) => data.user);
             // console.log(name);
@@ -78,7 +104,10 @@ export default function Home() {
                 <div className='flex justify-between items-center w-full'>
                   <p>Users :</p>
                   {name.map((n) => (
-                    <div key={n} className='inline-flex flex-col items-start'>
+                    <div
+                      key={n + Math.random()}
+                      className='inline-flex flex-col items-start'
+                    >
                       <p>{n}</p>
                     </div>
                   ))}
@@ -96,6 +125,15 @@ export default function Home() {
                     className=' bg-blue-500 py-[10px] px-[20px] rounded-[10px] text-white'
                   >
                     View
+                  </button>
+                  <div className='w-[30px]'></div>
+                  <button
+                    onClick={() => {
+                      handleDelete(record.id);
+                    }}
+                    className=' bg-red-500 py-[10px] px-[20px] rounded-[10px] text-white'
+                  >
+                    Delete
                   </button>
                 </div>
               </div>
