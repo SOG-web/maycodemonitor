@@ -86,7 +86,9 @@ const ViewPage = () => {
           />
         </div>
         {events.length > 0 ? (
-          <Player events={events} />
+          <div className='mb-[100px]'>
+            <Player events={events} />
+          </div>
         ) : (
           <div>Please select a user</div>
         )}
